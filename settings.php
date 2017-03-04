@@ -17,7 +17,7 @@
 			if(strstr($key,"ral_"))
 				$ralins[substr($key,4)] = $val;
 		}
-		
+
 		AnotherCustomLogin::setSettings(array(
 			"login_page" => $_POST["login_page"],
 			"ralins" => $ralins,
@@ -53,7 +53,7 @@
 						<th scope="row"><label for="login_page">Login page</label></th>
 						<td>
 							<select id="login_page" name="login_page">
-								<option value="-1" <?php echo $settings["login_page"] === false ? "selected" : "";?>>Not selected</option>
+								<option value="" <?php echo $settings["login_page"] === false ? "selected" : "";?>>Not selected</option>
 								<?php foreach($pages as $page) { ?>
 									<option value="<?php echo $page->ID; ?>" <?php echo $settings["login_page"] == $page->ID ? "selected" : "";?>><?php echo $page->post_title; ?></option>
 								<?php } ?>
