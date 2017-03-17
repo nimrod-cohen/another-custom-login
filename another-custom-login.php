@@ -34,6 +34,8 @@ class AnotherCustomLogin
 		add_action( 'wp_enqueue_scripts', array($this,"enqueueLoginCSS") );
 		add_filter( 'body_class',array($this,'addLoginClassToBody'));
 		add_filter( 'login_url', array($this,'getLoginUrl'), 10, 3 );
+
+		load_plugin_textdomain( 'another-custom-login', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 
 	public static function getSettings()
@@ -105,11 +107,11 @@ class AnotherCustomLogin
 	private function sendResetEmail($email,$key,$login)
 	{
 		$resetUrl = network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($login), 'login');
-		$message = __('Someone has requested a password reset for the following account:') . "\r\n\r\n";
+		$message = __('Someone has requested a password reset for the following account:','another-custom-login') . "\r\n\r\n";
 		$message .= network_home_url( '/' ) . "\r\n\r\n";
-		$message .= sprintf(__('Username: %s'), $email) . "\r\n\r\n";
-		$message .= __('If this was a mistake, just ignore this email and nothing will happen.') . "\r\n\r\n";
-		$message .= __('To reset your password, visit the following address:') . "\r\n\r\n";
+		$message .= sprintf(__('Username: %s','another-custom-login'), $email) . "\r\n\r\n";
+		$message .= __('If this was a mistake, just ignore this email and nothing will happen.','another-custom-login') . "\r\n\r\n";
+		$message .= __('To reset your password, visit the following address:','another-custom-login') . "\r\n\r\n";
 		$message .= "<a href='" . $resetUrl . "'>".$resetUrl."</a>\r\n";
 
 		if ( is_multisite() )
@@ -121,7 +123,7 @@ class AnotherCustomLogin
 			 */
 			$blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
 
-		$title = sprintf( __('[%s] Password Reset'), $blogname );
+		$title = sprintf( __('[%s] Password Reset','another-custom-login'), $blogname );
 
 		wp_mail( $email, wp_specialchars_decode( $title ), $message );
 
@@ -148,12 +150,12 @@ class AnotherCustomLogin
 		$pass2 = isset($_POST["pass2"]) ? trim($_POST["pass2"]) : "";
 
 		if(strlen($pass1) == 0)
-			$this->loginError = "Password is empty";
+			$this->loginError = __("Password is empty",'another-custom-login');
 		else if($pass1 != $pass2)
-			$this->loginError = "Passwords mismatch";
+			$this->loginError = __("Passwords mismatch",'another-custom-login');
 
 		reset_password($user, $pass1);
-		$this->loginError = "Password changed successfully";
+		$this->loginError = __("Password changed successfully",'another-custom-login');
 	}
 
 	private function doLostPassword()
@@ -163,7 +165,7 @@ class AnotherCustomLogin
 
 		if(!$login)
 		{
-			$this->loginError = "Invalid login or email address, or address does not exist";
+			$this->loginError = __("Invalid login or email address, or address does not exist",'another-custom-login');
 			return false;
 		}
 
@@ -174,21 +176,21 @@ class AnotherCustomLogin
 
 		if (!$user)
 		{
-			$this->loginError = "Invalid login or email address, or address does not exist";
+			$this->loginError = __("Invalid login or email address, or address does not exist",'another-custom-login');
 			return false;
 		}
 
 		$key = get_password_reset_key( $user );
 		if(is_wp_error($key))
 		{
-			$this->loginError = "Invalid login or email address, or address does not exist";
+			$this->loginError = __("Invalid login or email address, or address does not exist",'another-custom-login');
 			return false;
 		}
 
 		$email = $user->user_email;
 
 		$this->sendResetEmail($email, $key,$user->user_login);
-		$this->loginError = "Check your email for a link to reset your password";
+		$this->loginError = __("Check your email for a link to reset your password",'another-custom-login');
 
 		return true;
 	}

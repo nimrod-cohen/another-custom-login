@@ -1,0 +1,118 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"X-Generator: Poedit 1.8.12\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: he\n"
+
+#. Text in function
+#: login.php:26
+msgid "Lost your password?"
+msgstr "איבדת את הסיסמא שלך?"
+
+#. Text in function
+#: login.php:16
+msgid "Password"
+msgstr "סיסמא"
+
+#. Text in function
+#: login.php:20
+msgid "Remember Me"
+msgstr "זכור אותי במחשב זה"
+
+#. Text in function
+#: login.php:12
+msgid "Username or Email"
+msgstr "שם משתמש או אימייל"
+
+#. Text in function
+#: login.php:29
+msgid "← Back to "
+msgstr "← חזרה אל"
+
+#. Text in function
+#: lostpassword.php:14
+msgid "Email Address"
+msgstr "כתובת אימייל"
+
+#. Text in function
+#: lostpassword.php:19
+msgid "Get New Password"
+msgstr "שלח לי סיסמא חדשה"
+
+#. Text in function
+#: lostpassword.php:2
+msgid "Please enter your email address. You will receieve a link to create a new password via email"
+msgstr "אנא הזן את כתובת הדוא״ל שלך. נשלח לך מיד קישור כדי ליצור סיסמה חדשה"
+
+#. Text in function
+#: resetpassword.php:19
+msgid "Confirm new password"
+msgstr "וידוא סיסמא חדשה"
+
+#. Text in function
+#: resetpassword.php:10
+msgid "Enter your new password below"
+msgstr "הזן את הסיסמה החדשה שלך למטה."
+
+#. Text in function
+#: resetpassword.php:31
+msgid "Log in"
+msgstr "התחבר"
+
+#. Text in function
+#: resetpassword.php:15
+msgid "New password"
+msgstr "סיסמא חדשה"
+
+#. Text in function
+#: resetpassword.php:27
+msgid "Reset Password"
+msgstr "איפוס סיסמה"
+
+#. Text in function
+#: resetpassword.php:23
+msgid "Strength indicator"
+msgstr "עוצמת הסיסמה"
+
+#. Text in function
+#: resetpassword.php:24
+msgid "Hint: Strong passwords should be at least seven characters long. To make it stronger, use upper and lower case letters, numbers and symbols like ! “ ? $ % ^ & )"
+msgstr "רמז: הסיסמא צריכה להיות באורך של לפחות שבעה תווים. כדי להפוך אותה לחזקה יותר, השתמשו באותיות גדולות וקטנות, מספרים וסימנים כמו ! “ ? $ % ^ & )"
+
+msgid "Someone has requested a password reset for the following account:"
+msgstr "מישהו ביקש שיאפסו לו את הסיסמה מהסיבה הבאה:"
+
+msgid "Username: %s"
+msgstr "שם משתמש:%s"
+
+msgid "If this was a mistake, just ignore this email and nothing will happen."
+msgstr "אם לא רצית לאפס את סיסמתך, התעלם מהודעה זו ושום דבר לא יקרה."
+
+msgid "To reset your password, visit the following address:"
+msgstr "על מנת לאפס את הסיסמא, בקר בכתובת הבאה:"
+
+msgid "[%s] Password Reset"
+msgstr "[%s] איפוס סיסמה"
+
+msgid "Password is empty"
+msgstr "השדה ‘סיסמה ‘ ריק."
+
+msgid "Passwords mismatch"
+msgstr "הסיסמאות אינן תואמות"
+
+msgid "Password changed successfully"
+msgstr "סיסמתך שונתה בהצלחה"
+
+msgid "Invalid login or email address, or address does not exist"
+msgstr "משתמש לא חוקי או כתובת אימייל שאינה קיימת"
+
+msgid "Check your email for a link to reset your password"
+msgstr "בדוק את הדואר האלקטרוני שלך עבור קישור לאיפוס הסיסמה שלך"
