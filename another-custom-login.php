@@ -69,7 +69,8 @@ class AnotherCustomLogin
 	public function isLoginPage()
 	{
 		$loginUrl = wp_login_url();
-		$requestUrl = $_SERVER["REQUEST_SCHEME"]."://".$_SERVER["SERVER_NAME"].parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+		$requestUrl = $_SERVER["REQUEST_SCHEME"]."://".$_SERVER["HTTP_HOST"].parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
 		return $loginUrl == $requestUrl;
 	}
 
