@@ -96,7 +96,10 @@ class AnotherCustomLogin
 		$ralins = self::getSetting("ralins");
 
 		if(isset($ralins[$role]) && strlen($ralins[$role]) > 0)
-			wp_redirect(get_page_link($ralins[$role]));
+			if($ralins[$role] == "-1")
+				wp_redirect(get_dashboard_url());
+			else
+				wp_redirect(get_page_link($ralins[$role]));
 		else if(user_can($user,"manage_options"))
 			wp_redirect(get_dashboard_url());
 		else

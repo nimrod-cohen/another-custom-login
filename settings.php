@@ -84,7 +84,8 @@
 							<th scope="row"><label for="ral_<?php echo $role; ?>"><?php echo $details["name"]; ?></label></th>
 							<td>
 								<select id="ral_<?php echo $role; ?>" name="ral_<?php echo $role; ?>">
-									<option value="" <?php echo !isset($ralins[$role]) || strlen($ralins[$role]) == 0 ? "selected" : "";?>>Not selected</option>
+									<option value="" <?php echo (!isset($ralins[$role]) || $ralins[$role] == "") ? "selected" : "";?>>Not selected</option>
+									<option value="-1" <?php echo (isset($ralins[$role]) && $ralins[$role]) == "-1" ? "selected" : "";?>>Dashboard</option>
 								<?php foreach($pages as $page) { ?>
 									<option value="<?php echo $page->ID; ?>" <?php echo isset($ralins[$role]) && $ralins[$role] == $page->ID ? "selected" : "";?>><?php echo $page->post_title; ?></option>
 								<?php } ?>
