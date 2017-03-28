@@ -269,6 +269,9 @@ class AnotherCustomLogin
 					$this->loginError = $user->get_error_message();
 					return $this->getTemplate("login", $atts);
 				}
+
+				do_action("email_authenticated");
+
 				wp_enqueue_script( 'password-strength-meter' );
 				wp_enqueue_script('pwd-strength-check',plugin_dir_url(__FILE__)."/scripts/pwd-strength.js",array('password-strength-meter'));
 				return $this->getTemplate("resetpassword",$atts);
