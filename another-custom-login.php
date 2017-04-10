@@ -270,7 +270,7 @@ class AnotherCustomLogin
 					return $this->getTemplate("login", $atts);
 				}
 
-				do_action("email_authenticated");
+				do_action("anculo/email_authenticated",$user,"");
 
 				wp_enqueue_script( 'password-strength-meter' );
 				wp_enqueue_script('pwd-strength-check',plugin_dir_url(__FILE__)."/scripts/pwd-strength.js",array('password-strength-meter'));
