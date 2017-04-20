@@ -53,7 +53,7 @@
 					<tr>
 						<th scope="row"><label for="login_page">Login page</label></th>
 						<td>
-							<select id="login_page" name="login_page">
+							<select id="login_page" name="login_page" style="width:250px;">
 								<option value="" <?php echo $settings["login_page"] === false ? "selected" : "";?>>Not selected</option>
 								<?php foreach($pages as $page) { ?>
 									<option value="<?php echo $page->ID; ?>" <?php echo $settings["login_page"] == $page->ID ? "selected" : "";?>><?php echo $page->post_title; ?></option>
@@ -64,7 +64,7 @@
 					<tr>
 						<th scope="row"><label for="login_by">Login by</label></th>
 						<td>
-							<select id="login_by" name="login_by">
+							<select id="login_by" name="login_by" style="width:250px;">
 								<option value="both" <?php echo $settings["login_by"] === false ? "selected" : "";?>>Both</option>
 								<option value="email" <?php echo $settings["login_by"] == "email" ? "selected" : "";?>>Email</option>
 								<option value="username" <?php echo $settings["login_by"] == "username" ? "selected" : "";?>>User</option>
@@ -74,7 +74,7 @@
 					<tr>
 						<th scope="row"><label for="pass_strength">Minimal Password Strength</label></th>
 						<td>
-							<select id="pass_strength" name="pass_strength">
+							<select id="pass_strength" name="pass_strength" style="width:250px;">
 								<option value="0" <?php echo $settings["pass_strength"] == 0 ? "selected" : "";?>>Very weak</option>
 								<option value="2" <?php echo $settings["pass_strength"] == 2 ? "selected" : "";?>>Weak</option>
 								<option value="3" <?php echo $settings["pass_strength"] == 3 ? "selected" : "";?>>Medium</option>
@@ -94,7 +94,7 @@
 						<tr>
 							<th scope="row"><label for="ral_<?php echo $role; ?>"><?php echo $details["name"]; ?></label></th>
 							<td>
-								<select id="ral_<?php echo $role; ?>" name="ral_<?php echo $role; ?>">
+								<select style="width:250px;" id="ral_<?php echo $role; ?>" name="ral_<?php echo $role; ?>">
 									<option value="" <?php echo (!isset($ralins[$role]) || $ralins[$role] == "") ? "selected" : "";?>>Not selected</option>
 									<option value="-1" <?php echo (isset($ralins[$role]) && $ralins[$role]) == "-1" ? "selected" : "";?>>Dashboard</option>
 								<?php foreach($pages as $page) { ?>
