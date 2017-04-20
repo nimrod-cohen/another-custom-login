@@ -3,13 +3,28 @@
 
 	$loginUrl = wp_login_url();
 
+	$loginLabel = AnotherCustomLogin::getSetting("login_by");
+
+	switch($loginLabel)
+	{
+		case "both":
+			$loginLabel = __("Username or Email",'another-custom-login');
+			break;
+		case "email":
+			$loginLabel = __("Email Address",'another-custom-login');
+			break;
+		case "username":
+			$loginLabel = __("Username",'another-custom-login');
+			break;
+	}
+
 	if( $this->loginError )
 			echo "<p class='message'>".$this->loginError."</p>";
 
 	?><form name="loginform" id="loginform" action="<?php echo $loginUrl; ?>" method="post">
 		<input type="hidden" name="action" value="do_login">
 		<p class="login-username">
-			<label for="user_login"><?php _e("Username or Email",'another-custom-login') ?></label>
+			<label for="user_login"><?php echo $loginLabel; ?></label>
 			<input name="log" id="user_login" class="input" value="" size="20" type="text">
 		</p>
 		<p class="login-password">

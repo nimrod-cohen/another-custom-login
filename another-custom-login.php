@@ -44,6 +44,7 @@ class AnotherCustomLogin
 
 		return !$settings ? array(
 			"login_page" => false,
+			"login_by" => "both",
 			"ralins" => array(),
 			"pass_strength" => 0
 		) : (array)$settings;

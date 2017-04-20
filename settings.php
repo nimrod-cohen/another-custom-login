@@ -20,6 +20,7 @@
 
 		AnotherCustomLogin::setSettings(array(
 			"login_page" => $_POST["login_page"],
+			"login_by" => $_POST["login_by"],
 			"ralins" => $ralins,
 			"pass_strength" => $_POST["pass_strength"]
 		));
@@ -57,6 +58,16 @@
 								<?php foreach($pages as $page) { ?>
 									<option value="<?php echo $page->ID; ?>" <?php echo $settings["login_page"] == $page->ID ? "selected" : "";?>><?php echo $page->post_title; ?></option>
 								<?php } ?>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row"><label for="login_by">Login by</label></th>
+						<td>
+							<select id="login_by" name="login_by">
+								<option value="both" <?php echo $settings["login_by"] === false ? "selected" : "";?>>Both</option>
+								<option value="email" <?php echo $settings["login_by"] == "email" ? "selected" : "";?>>Email</option>
+								<option value="username" <?php echo $settings["login_by"] == "username" ? "selected" : "";?>>User</option>
 							</select>
 						</td>
 					</tr>

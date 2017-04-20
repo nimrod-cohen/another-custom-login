@@ -7,7 +7,7 @@ msgstr ""
 "PO-Revision-Date: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 2.0.1\n"
 "Last-Translator: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: he\n"
@@ -31,6 +31,11 @@ msgstr "זכור אותי במחשב זה"
 #: login.php:12
 msgid "Username or Email"
 msgstr "שם משתמש או אימייל"
+
+#. Text in function
+#: login.php:12
+msgid "Username"
+msgstr "שם משתמש"
 
 #. Text in function
 #: login.php:29
