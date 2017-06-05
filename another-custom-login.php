@@ -81,17 +81,19 @@ class AnotherCustomLogin
 
 		if(is_wp_error($user))
 			$this->loginError = $user->get_error_message();
-		else if (isset($_REQUEST['redirect_to']))
-		{
-			$redirect_to = $_REQUEST['redirect_to'];
-			wp_redirect($redirect_to);
-		}
 		else
 			$this->redirectLoggedInUser($user);
 	}
 
 	private function redirectLoggedInUser($user)
 	{
+		if (isset($_REQUEST['redirect_to']) || isset($_REQUEST["redirect"]))
+		{
+			$redirect_to = isset($_REQUEST['redirect_to']) ? $_REQUEST["redirect_to"] : $_REQUEST["redirect"];
+			wp_redirect($redirect_to);
+			return;
+		}
+
 		$roles = $user->roles;
 		$role = array_shift($roles);
 

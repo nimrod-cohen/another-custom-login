@@ -21,7 +21,7 @@
 	if( $this->loginError )
 			echo "<p class='message'>".$this->loginError."</p>";
 
-	?><form name="loginform" id="loginform" action="<?php echo $loginUrl; ?>" method="post">
+	?><form name="loginform" id="loginform" action="" method="post">
 		<input type="hidden" name="action" value="do_login">
 		<p class="login-username">
 			<label for="user_login"><?php echo $loginLabel; ?></label>
