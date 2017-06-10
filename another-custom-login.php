@@ -69,7 +69,7 @@ class AnotherCustomLogin
 
 	public function isLoginPage()
 	{
-		$loginUrl = wp_login_url();
+		$loginUrl = $this->getLoginUrl("");
 		$requestUrl = $_SERVER["REQUEST_SCHEME"]."://".$_SERVER["HTTP_HOST"].parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 		return $loginUrl == $requestUrl;
@@ -100,10 +100,12 @@ class AnotherCustomLogin
 		$ralins = self::getSetting("ralins");
 
 		if(isset($ralins[$role]) && strlen($ralins[$role]) > 0)
-			if($ralins[$role] == "-1")
+		{
+			if ($ralins[$role] == "-1")
 				wp_redirect(get_dashboard_url());
 			else
 				wp_redirect(get_page_link($ralins[$role]));
+		}
 		else if(user_can($user,"manage_options"))
 			wp_redirect(get_dashboard_url());
 		else
@@ -139,7 +141,7 @@ class AnotherCustomLogin
 	private function doLogout()
 	{
 		wp_logout();
-		wp_redirect(wp_login_url());
+		wp_redirect($this->getLoginUrl(""));
 	}
 
 	private function doResetPassword()
@@ -208,13 +210,12 @@ class AnotherCustomLogin
 		{
 			$this->loginError = false;
 
-			$action = isset($_REQUEST["action"]) ? $_REQUEST["action"] : null;
+			$action = preg_match("/[\?\&]action\=logout/",$_SERVER["REQUEST_URI"]);
 
-			if (is_user_logged_in() && $action != "logout")
-			{
-				$this->redirectLoggedInUser(wp_get_current_user());
-				return;
-			}
+			if($action)
+				$action = "logout";
+			else
+				$action = isset($_REQUEST["action"]) ? $_REQUEST["action"] : null;
 
 			switch ($action)
 			{
@@ -256,20 +257,40 @@ class AnotherCustomLogin
 		add_options_page("Another Custom Login","Custom Login","manage_options","anculo-settings",array($this,"renderManageScreen"));
 	}
 
+	public function safeGET($key,$default = false)
+	{
+		$val = isset($_GET[$key])? $_GET[$key] : false;
+
+		if(!$val)
+		{
+			$val = [];
+			$found = preg_match("/[\?\&]".$key."\=([^&]*)/",$_SERVER["REQUEST_URI"],$val);
+			if($found)
+				return $val[1];
+
+			return $default;
+		}
+
+		return $val;
+
+	}
+
 	//this happens after page already started to render.
 	public function showLogin($atts)
 	{
-		$action = isset($_GET["action"])? $_GET["action"] : "login";
+		$action = $this->safeGET("action","login");
 
 		switch($action)
 		{
 			case "lostpassword":
 				return $this->getTemplate("lostpassword",$atts);
 			case "rp":
-				$user = check_password_reset_key( $_REQUEST['key'], $_REQUEST["login"] );
+				$key = urldecode($this->safeGET("key"));
+				$login = urldecode($this->safeGET("login"));
+				$user = check_password_reset_key($key,$login);
 				if(is_wp_error($user))
 				{
-					$this->loginError = $user->get_error_message();
+					$this->loginError = $user->get_error_message()." ".$key." for login ".$login;
 					return $this->getTemplate("login", $atts);
 				}
 
