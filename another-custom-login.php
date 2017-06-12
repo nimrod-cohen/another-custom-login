@@ -147,6 +147,7 @@ class AnotherCustomLogin
 	private function doResetPassword()
 	{
 		$this->loginError = false;
+
 		$user = check_password_reset_key( $_REQUEST['key'], $_REQUEST['user_login'] );
 
 		if(is_wp_error($user))
@@ -164,6 +165,7 @@ class AnotherCustomLogin
 			$this->loginError = __("Passwords mismatch",'another-custom-login');
 
 		reset_password($user, $pass1);
+
 		$this->loginError = __("Password changed successfully",'another-custom-login');
 	}
 
@@ -231,16 +233,30 @@ class AnotherCustomLogin
 				case "logout":
 					$this->doLogout();
 					exit;
+				default:
+					//logged in users shouldn't be here.
+					$user = wp_get_current_user();
+
+					if($user->ID != 0)
+					{
+						$this->redirectLoggedInUser($user);
+						exit;
+					}
 			}
+
+
 		}
 	}
 
 	public function protectWPLogin()
 	{
-		$loginPage = self::getSetting("login_page");
-
-		if(strstr($_SERVER["REQUEST_URI"],"/wp-login.php") > -1 && "" !== $loginPage)
+		if(strstr($_SERVER["REQUEST_URI"],"/wp-login.php") > -1)
 		{
+			$loginPage = self::getSetting("login_page");
+
+			if( strlen($loginPage) == 0)
+				return;
+
 			$link = get_page_link($loginPage).(!empty($_SERVER["QUERY_STRING"]) ? "?".$_SERVER["QUERY_STRING"] : "");
 			wp_redirect($link);
 			exit;
@@ -257,40 +273,20 @@ class AnotherCustomLogin
 		add_options_page("Another Custom Login","Custom Login","manage_options","anculo-settings",array($this,"renderManageScreen"));
 	}
 
-	public function safeGET($key,$default = false)
-	{
-		$val = isset($_GET[$key])? $_GET[$key] : false;
-
-		if(!$val)
-		{
-			$val = [];
-			$found = preg_match("/[\?\&]".$key."\=([^&]*)/",$_SERVER["REQUEST_URI"],$val);
-			if($found)
-				return $val[1];
-
-			return $default;
-		}
-
-		return $val;
-
-	}
-
 	//this happens after page already started to render.
 	public function showLogin($atts)
 	{
-		$action = $this->safeGET("action","login");
+		$action = isset($_GET["action"])? $_GET["action"] : "login";
 
 		switch($action)
 		{
 			case "lostpassword":
 				return $this->getTemplate("lostpassword",$atts);
 			case "rp":
-				$key = urldecode($this->safeGET("key"));
-				$login = urldecode($this->safeGET("login"));
-				$user = check_password_reset_key($key,$login);
+				$user = check_password_reset_key($_REQUEST['key'], $_REQUEST["login"]);
 				if(is_wp_error($user))
 				{
-					$this->loginError = $user->get_error_message()." ".$key." for login ".$login;
+					$this->loginError = $user->get_error_message();
 					return $this->getTemplate("login", $atts);
 				}
 
@@ -305,7 +301,8 @@ class AnotherCustomLogin
 		}
 	}
 
-	private function getTemplate( $template_name, $attributes = null ) {
+	private function getTemplate( $template_name, $attributes = null )
+	{
 		if ( ! $attributes ) {
 			$attributes = array();
 		}
