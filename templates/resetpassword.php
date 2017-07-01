@@ -2,13 +2,18 @@
 
 	$loginUrl = wp_login_url();
 
-	$doResetUrl = add_query_arg("action","do_resetpassword",$loginUrl);
-
 	$minStrength = AnotherCustomLogin::getSetting("pass_strength");
 ?>
 <div id="login">
-	<p class="message reset-pass"><?php _e("Enter your new password below","another-custom-login")?>.</p>
-	<form name="resetpassform" id="resetpassform" action="<?php echo $doResetUrl; ?>" method="post">
+	<p class="message reset-pass">
+		<?php
+			if( $this->loginError )
+				echo $this->loginError;
+			else
+				_e("Enter your new password below","another-custom-login")
+		?>.
+	</p>
+	<form name="resetpassform" id="resetpassform" action="" method="POST">
 		<input id="user_login" name="user_login" value="<?php echo $_GET["login"]; ?>" type="hidden">
 		<input id="key" name="key" value="<?php echo $_GET["key"]; ?>" type="hidden">
 		<p>

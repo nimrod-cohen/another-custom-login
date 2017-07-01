@@ -153,20 +153,28 @@ class AnotherCustomLogin
 		if(is_wp_error($user))
 		{
 			$this->loginError = $user->get_error_message();
-			return;
+			return false;
 		}
 
 		$pass1 = isset($_POST["pass1"]) ? trim($_POST["pass1"]) : "";
 		$pass2 = isset($_POST["pass2"]) ? trim($_POST["pass2"]) : "";
 
 		if(strlen($pass1) == 0)
-			$this->loginError = __("Password is empty",'another-custom-login');
+		{
+			$this->loginError = __("Password is empty", 'another-custom-login');
+			return false;
+		}
 		else if($pass1 != $pass2)
-			$this->loginError = __("Passwords mismatch",'another-custom-login');
-
-		reset_password($user, $pass1);
-
-		$this->loginError = __("Password changed successfully",'another-custom-login');
+		{
+			$this->loginError = __("Passwords mismatch", 'another-custom-login');
+			return false;
+		}
+		else
+		{
+			reset_password($user, $pass1);
+			$this->loginError = __("Password changed successfully", 'another-custom-login');
+			return true;
+		}
 	}
 
 	private function doLostPassword()
@@ -226,9 +234,6 @@ class AnotherCustomLogin
 					break;
 				case "do_lostpassword":
 					$this->doLostPassword();
-					break;
-				case "do_resetpassword":
-					$this->doResetPassword();
 					break;
 				case "logout":
 					$this->doLogout();
@@ -290,11 +295,19 @@ class AnotherCustomLogin
 					return $this->getTemplate("login", $atts);
 				}
 
-				do_action("anculo/email_authenticated",$user,"");
+				if($_SERVER["REQUEST_METHOD"] == "POST" && $this->doResetPassword())
+				{
+					return $this->getTemplate("login",$atts);
+				}
+				else
+				{
+					if( $_SERVER["REQUEST_METHOD"] == "GET") //first call?
+						do_action("anculo/email_authenticated", $user, "");
 
-				wp_enqueue_script( 'password-strength-meter' );
-				wp_enqueue_script('pwd-strength-check',plugin_dir_url(__FILE__)."/scripts/pwd-strength.js",array('password-strength-meter'));
-				return $this->getTemplate("resetpassword",$atts);
+					wp_enqueue_script('password-strength-meter');
+					wp_enqueue_script('pwd-strength-check', plugin_dir_url(__FILE__) . "/scripts/pwd-strength.js", array('password-strength-meter'));
+					return $this->getTemplate("resetpassword", $atts);
+				}
 			case "login":
 			default:
 				return $this->getTemplate("login",$atts);
