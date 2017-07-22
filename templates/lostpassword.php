@@ -7,7 +7,7 @@
 	if( $anculo_error )
 		echo "<p class='message'>".$anculo_error."</p>";
 	else
-		echo "<p class='message'>".__("Please enter your email address. You will receieve a link to create a new password via email",'another-custom-login')."</p>";
+		echo "<p class='message'>".__("Please enter your email address. You will receive a link to create a new password via email",'another-custom-login')."</p>";
 	?><form name="loginform" id="loginform" action="<?php echo $loginUrl; ?>" method="post">
 		<input type="hidden" name="action" value="do_lostpassword">
 		<p class="login-username">
