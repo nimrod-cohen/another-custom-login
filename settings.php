@@ -90,7 +90,9 @@
 					<?php
 					$roles = get_editable_roles();
 					$ralins = $settings["ralins"];
-					foreach ( $roles as $role => $details ) { ?>
+					foreach ( $roles as $role => $details ) {
+						$role = str_replace(" ","_",$role);
+						?>
 						<tr>
 							<th scope="row"><label for="ral_<?php echo $role; ?>"><?php echo $details["name"]; ?></label></th>
 							<td>
