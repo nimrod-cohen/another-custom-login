@@ -96,6 +96,7 @@ class AnotherCustomLogin
 
 		$roles = $user->roles;
 		$role = array_shift($roles);
+		$role = str_replace(" ","_",$role);
 
 		$ralins = self::getSetting("ralins");
 
