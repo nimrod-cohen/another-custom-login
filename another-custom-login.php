@@ -42,12 +42,12 @@ class AnotherCustomLogin
 	{
 		$settings = get_option('anculo_settings',false);
 
-		return !$settings ? array(
-			"login_page" => false,
-			"login_by" => "both",
+		$defaults = ["login_page" => false,
+			"login_by" => "email",
 			"ralins" => array(),
-			"pass_strength" => 0
-		) : (array)$settings;
+			"pass_strength" => 0];
+
+		return !is_array($settings) ? $defaults : array_filter($settings) + $defaults;
 	}
 
 	public static function getSetting($name)
