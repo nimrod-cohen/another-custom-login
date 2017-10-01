@@ -7,7 +7,7 @@ msgstr ""
 "PO-Revision-Date: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
-"X-Generator: Poedit 2.0.1\n"
+"X-Generator: Poedit 2.0.4\n"
 "Last-Translator: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: he\n"
@@ -54,7 +54,7 @@ msgstr "שלח לי סיסמא חדשה"
 
 #. Text in function
 #: lostpassword.php:2
-msgid "Please enter your email address. You will receieve a link to create a new password via email"
+msgid "Please enter your email address. You will receive a link to create a new password via email"
 msgstr "אנא הזן את כתובת הדוא״ל שלך. נשלח לך מיד קישור כדי ליצור סיסמה חדשה"
 
 #. Text in function
