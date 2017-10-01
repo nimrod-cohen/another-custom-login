@@ -22,7 +22,8 @@
 			"login_page" => $_POST["login_page"],
 			"login_by" => $_POST["login_by"],
 			"ralins" => $ralins,
-			"pass_strength" => $_POST["pass_strength"]
+			"pass_strength" => $_POST["pass_strength"],
+			"locale" => $_POST["locale"]
 		));
 		$showSaved = true;
 	}
@@ -69,6 +70,16 @@
 								<option value="email" <?php echo $settings["login_by"] == "email" ? "selected" : "";?>>Email</option>
 								<option value="username" <?php echo $settings["login_by"] == "username" ? "selected" : "";?>>User</option>
 							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>Plugin Locale</th>
+						<td>
+							<?php wp_dropdown_languages(
+								[
+									"name" => "locale",
+									"selected" => isset($settings["locale"]) ? $settings["locale"] : null
+								]); ?>
 						</td>
 					</tr>
 					<tr>

@@ -35,7 +35,16 @@ class AnotherCustomLogin
 		add_filter( 'body_class',array($this,'addLoginClassToBody'));
 		add_filter( 'login_url', array($this,'getLoginUrl'), 10, 3 );
 
+		add_filter('plugin_locale',[$this,'locale']);
+
 		load_plugin_textdomain( 'another-custom-login', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	}
+
+	public function locale($loc)
+	{
+		$locale = self::getSetting("locale");
+
+		return $locale ? $locale : $loc;
 	}
 
 	public static function getSettings()
@@ -54,7 +63,7 @@ class AnotherCustomLogin
 	{
 		$settings = self::getSettings();
 
-		return $settings[$name];
+		return isset($settings[$name]) ? $settings[$name] : false;
 	}
 
 	public static function setSettings($args)
