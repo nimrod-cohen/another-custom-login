@@ -42,6 +42,9 @@ class AnotherCustomLogin
 
 	public function locale($loc)
 	{
+		if(is_admin())
+			return $loc;
+
 		$locale = self::getSetting("locale");
 
 		return $locale ? $locale : $loc;
